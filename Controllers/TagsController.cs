@@ -19,13 +19,7 @@ namespace TheBlogProject.Controllers
             _context = context;
         }
 
-        // GET: Tags
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Tags.Include(t => t.Post);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
+       
         // GET: Tags/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,29 +39,29 @@ namespace TheBlogProject.Controllers
             return View(tag);
         }
 
-        // GET: Tags/Create
-        public IActionResult Create()
-        {
-            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract");
-            return View();
-        }
+        //// GET: Tags/Create
+        //public IActionResult Create()
+        //{
+        //    ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract");
+        //    return View();
+        //}
 
         // POST: Tags/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PostId,AuthorId,Text")] Tag tag)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(tag);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract", tag.PostId);
-            return View(tag);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,PostId,AuthorId,Text")] Tag tag)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(tag);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract", tag.PostId);
+        //    return View(tag);
+        //}
 
         // GET: Tags/Edit/5
         public async Task<IActionResult> Edit(int? id)
