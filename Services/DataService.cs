@@ -12,11 +12,15 @@ namespace TheBlogProject.Services
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<BlogUser> _userManager;
 
-        public DataService(ApplicationDbContext dbContext, RoleManager<IdentityRole> roleManager)
+        public DataService(ApplicationDbContext dbContext,
+                           RoleManager<IdentityRole> roleManager,
+                           UserManager<BlogUser> userManager)
         {
             _dbContext = dbContext;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
 
@@ -32,7 +36,7 @@ namespace TheBlogProject.Services
 
         private async Task SeedRolesAsync()
         {
-            // if there are alreasy roles in the system, do nothing
+            // if there are already roles in the system, do nothing
             if (_dbContext.Roles.Any()) { return; }
 
             //otherwise create a few Roles
@@ -46,11 +50,11 @@ namespace TheBlogProject.Services
 
        private async Task SeedUsersAsync() 
        {
-            // if there are alreasy users in the system, do nothing
+            // if there are already users in the system, do nothing
             if(_dbContext.Users.Any()) { return; }
 
 
-            //step 1  create a new instance of BlogUser
+            //step 1  Create a new instance of BlogUser
             var adminUser = new BlogUser()
             {
                 Email = "jasontwitchell@coderfoundry.com",
@@ -60,6 +64,26 @@ namespace TheBlogProject.Services
                 PhoneNumber = "555-1212",
                 EmailConfirmed = true
             };
+
+            //step 2  Use the UserManager to create a new user that is defined by adminUser
+            await _userManager.CreateAsync(adminUser, "Abc&123!");
+
+            //step 3 Add this new user to the Administrator role
+            await _userManager.AddToRoleAsync(adminUser, BlogRole.Administrator.ToString());
+
+            //step 1 repeat: create the moderator user
+            var modUser = new BlogUser()
+            {
+                Email = "andrewrussell@coderfoundry.com",
+                UserName = "andrewrussell@coderfoundry.com",
+                FirstName = "Andrew",
+                LastName = "Russell",
+                PhoneNumber = "555-1313",
+                EmailConfirmed = true
+            };
+
+            await _userManager.CreateAsync(modUser, "Abc&123!");
+            await _userManager.AddToRoleAsync(modUser, BlogRole.Moderator.ToString());
 
         }
 

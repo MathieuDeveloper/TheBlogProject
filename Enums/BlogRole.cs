@@ -2,7 +2,7 @@
 {
     public enum BlogRole
     {
-        Adminisitrator,
+        Administrator,
         Moderator
     }
 }
