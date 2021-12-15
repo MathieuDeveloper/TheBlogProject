@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheBlogProject.Data;
 using TheBlogProject.Models;
+using TheBlogProject.Services;
 
 namespace TheBlogProject
 {
@@ -49,7 +50,7 @@ namespace TheBlogProject
             services.AddRazorPages();
 
             //Register my custom dataService class
-
+            services.AddScoped<DataService>(); 
 
 
         }
