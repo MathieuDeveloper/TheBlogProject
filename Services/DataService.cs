@@ -39,7 +39,7 @@ namespace TheBlogProject.Services
             // if there are already roles in the system, do nothing
             if (_dbContext.Roles.Any()) { return; }
 
-            //otherwise create a few Roles
+            // otherwise create a few Roles
             foreach (var role in Enum.GetNames(typeof(BlogRole)))
             {
                 // I need to use Role Manager to create roles
