@@ -61,6 +61,7 @@ namespace TheBlogProject.Services
                 UserName = "jasontwitchell@coderfoundry.com",
                 FirstName = "Jason",
                 LastName = "Twitchell",
+                DisplayName = "The Professor",
                 PhoneNumber = "555-1212",
                 EmailConfirmed = true
             };
@@ -78,6 +79,7 @@ namespace TheBlogProject.Services
                 UserName = "andrewrussell@coderfoundry.com",
                 FirstName = "Andrew",
                 LastName = "Russell",
+                DisplayName ="The other Professor",
                 PhoneNumber = "555-1313",
                 EmailConfirmed = true
             };
