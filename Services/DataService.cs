@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,9 @@ namespace TheBlogProject.Services
 
         public async Task ManageDataAsync()
         {
+            //Task: Create the DB from the migrations
+            await _dbContext.Database.MigrateAsync();
+
             //1: Seed a few Roles into the system
             await SeedRolesAsync();
 
@@ -79,7 +83,7 @@ namespace TheBlogProject.Services
                 UserName = "andrewrussell@coderfoundry.com",
                 FirstName = "Andrew",
                 LastName = "Russell",
-                DisplayName ="The other Professor",
+                DisplayName = "The other Professor",
                 PhoneNumber = "555-1313",
                 EmailConfirmed = true
             };
