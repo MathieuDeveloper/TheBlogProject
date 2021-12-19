@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Threading.Tasks;
@@ -20,7 +22,7 @@ namespace TheBlogProject.Services
             throw new NotImplementedException();
         }
 
-        public Task SendEmailAsync(string emailTo, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string emailTo, string subject, string htmlMessage)
         {
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);  
@@ -36,6 +38,14 @@ namespace TheBlogProject.Services
             };
 
             email.Body = builder.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+
+            await smtp.SendAsync(email);
+
+            smtp.Disconnect(true);
 
 
 
