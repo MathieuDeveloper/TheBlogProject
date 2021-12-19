@@ -20,9 +20,25 @@ namespace TheBlogProject.Services
             throw new NotImplementedException();
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public Task SendEmailAsync(string emailTo, string subject, string htmlMessage)
         {
             var email = new MimeMessage();
+            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);  
+            email.To.Add(MailboxAddress.Parse(emailTo));   
+            email.Subject = subject;
+
+            //var builder  =new BodyBuilder();
+            //builder.HtmlBody = htmlMessage; 
+
+            var builder = new BodyBuilder()
+            {
+                HtmlBody = htmlMessage
+            };
+
+            email.Body = builder.ToMessageBody();
+
+
+
         }
     }
 }
