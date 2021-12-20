@@ -61,10 +61,10 @@ namespace TheBlogProject.Services
             //step 1  Create a new instance of BlogUser
             var adminUser = new BlogUser()
             {
-                Email = "jasontwitchell@coderfoundry.com",
-                UserName = "jasontwitchell@coderfoundry.com",
-                FirstName = "Jason",
-                LastName = "Twitchell",
+                Email = "jacodiabolo@yahoo.fr",
+                UserName = "jacodiabolo@yahoo.fr",
+                FirstName = "Jaco",
+                LastName = "Diabolo",
                 DisplayName = "The Professor",
                 PhoneNumber = "555-1212",
                 EmailConfirmed = true
