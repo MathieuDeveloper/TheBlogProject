@@ -79,10 +79,10 @@ namespace TheBlogProject.Services
             //step 1 repeat: create the moderator user
             var modUser = new BlogUser()
             {
-                Email = "andrewrussell@coderfoundry.com",
-                UserName = "andrewrussell@coderfoundry.com",
-                FirstName = "Andrew",
-                LastName = "Russell",
+                Email = "topfermathieu@yahoo.fr",
+                UserName = "topfermathieu@yahoo.fr",
+                FirstName = "Mathieu",
+                LastName = "Topfer",
                 DisplayName = "The other Professor",
                 PhoneNumber = "555-1313",
                 EmailConfirmed = true
