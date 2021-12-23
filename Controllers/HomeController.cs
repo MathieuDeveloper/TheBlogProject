@@ -42,6 +42,7 @@ namespace TheBlogProject.Controllers
         public async Task<IActionResult> Contact(ContactMe model)
         {
             //This is where we will be emailing...
+            model.Message = $"{model.Message} <hr/> Phone: { model.Phone} ";
         }
 
 
