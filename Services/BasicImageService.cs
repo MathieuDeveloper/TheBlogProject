@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace TheBlogProject.Services
@@ -17,19 +18,23 @@ namespace TheBlogProject.Services
             return $"data:image/{type};base64,{Convert.ToBase64String(data)}";
         }
 
-        public Task<byte[]> EncodeImageAsync(IFormFile file)
+        public async Task<byte[]> EncodeImageAsync(IFormFile file)
         {
-            throw new System.NotImplementedException();
+            if(file is null) return null;
+            using var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            return ms.ToArray();
         }
 
-        public Task<byte[]> EncodeImageAsync(string fileName)
+        public async Task<byte[]> EncodeImageAsync(string fileName)
         {
-            throw new System.NotImplementedException();
+            var file = $"{Directory.GetCurrentDirectory()}/wwwroot/images/{fileName}";
+            return await File.ReadAllBytesAsync(file);
         }
 
         public int Size(IFormFile file)
         {
-            throw new System.NotImplementedException();
+            return Convert.ToInt32(file?.Length);
         }
     }
 }
