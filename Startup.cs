@@ -55,7 +55,10 @@ namespace TheBlogProject
 
             //Register a preconfigures instance of the MailSettings class
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            services.AddScoped<IBlogEmailSender, EmailService>();    
+            services.AddScoped<IBlogEmailSender, EmailService>();
+
+            //Register our Image Service
+            services.AddScoped<IImageService, BasicImageService>();
 
 
         }
