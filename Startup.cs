@@ -60,6 +60,9 @@ namespace TheBlogProject
             //Register our Image Service
             services.AddScoped<IImageService, BasicImageService>();
 
+            //Register the Slug service
+            services.AddScoped<ISlugService, BasicSlugService>();
+
 
         }
 
