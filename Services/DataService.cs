@@ -41,7 +41,10 @@ namespace TheBlogProject.Services
         private async Task SeedRolesAsync()
         {
             // if there are already roles in the system, do nothing
-            if (_dbContext.Roles.Any()) { return; }
+            if (_dbContext.Roles.Any()) 
+            {
+                return;
+            }
 
             // otherwise create a few Roles
             foreach (var role in Enum.GetNames(typeof(BlogRole)))
