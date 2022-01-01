@@ -1,4 +1,8 @@
-﻿@model IEnumerable<TheBlogProject.Models.Post>
+﻿@using TheBlogProject.Services
+@using TheBlogProject.Models
+
+@inject IImageService imageService
+@model IEnumerable<Post>
 
 @{
     ViewData["Title"] = "Index";
