@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -111,7 +112,10 @@ namespace TheBlogProject.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     ImageData = (await _imageService.EncodeImageAsync(Input.ImageFile)) ??
-                                 await _imageService.EncodeImageAsync(_configuration["DefaultUserImage"])  
+                                 await _imageService.EncodeImageAsync(_configuration["DefaultUserImage"]),
+                    ContentType = Input.ImageFile is null ?
+                                    Path.GetExtension(_configuration["DefaultUserImage"]) :
+                                    _imageService.ContentType(Input.ImageFile)
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
