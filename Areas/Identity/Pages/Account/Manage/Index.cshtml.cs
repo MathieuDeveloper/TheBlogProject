@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TheBlogProject.Models;
+using TheBlogProject.Services;
 
 namespace TheBlogProject.Areas.Identity.Pages.Account.Manage
 {
@@ -15,16 +16,21 @@ namespace TheBlogProject.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<BlogUser> _userManager;
         private readonly SignInManager<BlogUser> _signInManager;
+        private readonly IImageService _imageService;
 
         public IndexModel(
             UserManager<BlogUser> userManager,
-            SignInManager<BlogUser> signInManager)
+            SignInManager<BlogUser> signInManager, 
+            IImageService imageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _imageService = imageService;
         }
 
         public string Username { get; set; }
+        public string CurrentImage { get; set; }    
+
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -47,6 +53,7 @@ namespace TheBlogProject.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
+            CurrentImage = _imageService.DecodeImage(user.ImageData, user.ContentType);
 
             Input = new InputModel
             {
@@ -90,6 +97,14 @@ namespace TheBlogProject.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            //If and only if the user  selected a new image will I update their profile image
+            if(Input.Image is not null)
+            {
+                user.ImageData = await _imageService.EncodeImageAsync(Input.Image);
+                await _userManager.UpdateAsync(user);
+            }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
