@@ -50,10 +50,10 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <button name="Add" type="button" class="btn alert-dark btn-dark col-12 mt-3">Add</button>
+                                <button onclick="AddTag()" name="Add" type="button" class="btn alert-dark btn-dark col-12 mt-3">Add</button>
                         </div>
                             <div class="col">
-                                <button name="Delete" type="button" class="btn alert-dark btn-dark col-12 mt-3">Delete</button>
+                                <button onclick="DeleteTag()" name="Delete" type="button" class="btn alert-dark btn-dark col-12 mt-3">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -92,6 +92,8 @@
 </div>
 
 @section Scripts{
+
+    <script src="~/js/Custom.js"></script>
 
     <script>
         //Default font size but not for placeholder...
