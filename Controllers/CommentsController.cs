@@ -22,7 +22,7 @@ namespace TheBlogProject.Controllers
         // GET: Comments
         public async Task<IActionResult> OriginalIndex()
         {
-            var originalComments = _context.Comments.ToListAsync();
+            var originalComments = await _context.Comments.ToListAsync();
             return View("Index", originalComments);
         }
 

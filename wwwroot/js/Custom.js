@@ -14,5 +14,18 @@ function AddTag() {
 }
 
 function DeleteTag() {
+    let tagCount = 1;
+    while (tagCount > 0) {
+        let tagList = document.getElementById("TagList");
+        let selectedIndex = tagList.selectedIndex;
+        if (selectedIndex >= 0) {
+            tagList.options[selectedIndex] = null;
+            --tagCount;
+        }
+        else
+            tagCount = 0;
+        index--;
+    }
+
 
 }
