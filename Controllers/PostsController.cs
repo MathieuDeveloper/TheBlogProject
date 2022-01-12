@@ -105,7 +105,7 @@ namespace TheBlogProject.Controllers
                     _context.Add(new Tag()
                     {
                         PostId = post.Id,
-                        BlogUserId = authorId,
+                        AuthorId = authorId,
                         Text = tagText
                     });
                 }
