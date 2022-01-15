@@ -48,3 +48,24 @@ function ReplaceTag(tag, index) {
     let newOption = new Option(tag, tag);
     document.getElementById("TagList").options[index] = newOption;
 }
+
+
+
+//The Search funtion will detect either an empty or a duplicate Tag
+//and return an error string if an error is detected
+function search(str) {
+    if (str == "") {
+        return 'Empty tags are not permitted';
+    }
+
+    var tagsEl = document.getElementById('Taglist');
+    if (tagsEl) {
+        let options = tagsEl.options;
+        for (let index = 0; index < options.length; index++) {
+            if (options[index].value == str)
+                return ''
+        }
+    }
+
+
+}
