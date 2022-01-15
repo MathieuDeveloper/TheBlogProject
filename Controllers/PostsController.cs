@@ -144,7 +144,7 @@ namespace TheBlogProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogId,Title,Abstract,Content,ReadyStatus")] Post post, IFormFile newImage)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BlogId,Title,Abstract,Content,ReadyStatus")] Post post, IFormFile newImage, List<string> tagValues)
         {
             if (id != post.Id)
             {
@@ -155,7 +155,7 @@ namespace TheBlogProject.Controllers
             {
                 try
                 {
-                    var newPost = await _context.Posts.FindAsync(post.Id);
+                    var newPost = await _context.Posts.Include(p => p.Tags).FirstOrDefaultAsync(p => p.Id == post.Id);    
 
                     newPost.Updated = DateTime.Now;
                     newPost.Title = post.Title;
@@ -169,7 +169,20 @@ namespace TheBlogProject.Controllers
                         newPost.ContentType = _imageService.ContentType(newImage);
                     }
 
-                    
+                    //Remove all tags previously associated with this Post
+                    _context.Tags.RemoveRange(newPost.Tags);
+
+                    //Add in the new Tags from the Edit form (Mathieu replace BlogUserId by AuthorId)
+                    foreach(var tagText in tagValues)
+                    {
+                        _context.Add(new Tag()
+                        {
+                            PostId = post.Id,
+                            AuthorId = newPost.BlogUserId,
+                            Text = tagText 
+                        });
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
