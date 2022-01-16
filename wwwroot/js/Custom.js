@@ -4,9 +4,26 @@ function AddTag() {
     //Get a reference to the TagEntry input element
     var tagEntry = document.getElementById("TagEntry");
 
-    //Create a new Select Option
-    let newOption = new Option(tagEntry.value, tagEntry.value);
-    document.getElementById("TagList").options[index++] = newOption;
+    //Lets use the new search funstion to help detect an error state
+    let searchResult = search(tagEntry.value);
+    if (searchResult != null) {
+        //Trigger my sweet alert for whatever condition is contained in the searchReslut var
+        Swal.fire({
+            title: 'Error!',
+            text: 'Do you want to continue',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+        })
+
+
+    }
+    else {
+
+        //Create a new Select Option
+        let newOption = new Option(tagEntry.value, tagEntry.value);
+        document.getElementById("TagList").options[index++] = newOption;
+    }
+        
 
     //Clear out the TagEntry control
     tagEntry.value = "";
@@ -63,7 +80,7 @@ function search(str) {
         let options = tagsEl.options;
         for (let index = 0; index < options.length; index++) {
             if (options[index].value == str)
-                return ''
+                return `The Tag ${str} was detected as a duplicate and not permitted`;
         }
     }
 
