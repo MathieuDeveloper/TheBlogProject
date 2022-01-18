@@ -61,7 +61,8 @@ namespace TheBlogProject.Controllers
         public IActionResult Create()
         {
             ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id");
+            // Mathieu: i replace BlogUserId with AuthorId 
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 

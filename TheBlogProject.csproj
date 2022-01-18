@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-TheBlogProject-7BA72BEE-A95B-416B-A05A-447BF69BA82C</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+	<InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
