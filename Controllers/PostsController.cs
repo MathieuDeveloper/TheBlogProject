@@ -20,6 +20,8 @@ namespace TheBlogProject.Controllers
         private readonly IImageService _imageService;
         private readonly UserManager<BlogUser> _userManager;
 
+        
+
         public PostsController(ApplicationDbContext context, ISlugService slugService, IImageService imageService, UserManager<BlogUser> userManager)
         {
             _context = context;
@@ -61,8 +63,8 @@ namespace TheBlogProject.Controllers
         public IActionResult Create()
         {
             ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");
-            // Mathieu: i replace BlogUserId with AuthorId 
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
+            
+            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -100,9 +102,9 @@ namespace TheBlogProject.Controllers
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-
+                //Mathieu : note dans la video il utilise BlogUserId au lieu de AuthorId mais ça bug
                 //How do I loop over the incoming list of string ?
-                foreach(var tagText in tagValues)
+                foreach (var tagText in tagValues)
                 {
                     _context.Add(new Tag()
                     {
