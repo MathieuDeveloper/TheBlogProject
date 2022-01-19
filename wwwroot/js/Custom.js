@@ -70,11 +70,13 @@ function ReplaceTag(tag, index) {
 
 //The Search funtion will detect either an empty or a duplicate Tag
 //and return an error string if an error is detected
+
+
 function search(str) {
     if (str == "") {
         return 'Empty tags are not permitted';
     }
-
+    
     var tagsEl = document.getElementById('Taglist');
     if (tagsEl) {
         let options = tagsEl.options;
@@ -83,6 +85,24 @@ function search(str) {
                 return `The Tag #${str} was detected as a duplicate and not permitted`;
             }
         }
+        
     }
 
 }
+
+// Detect empty or duplicate tag according to Kyle JoyfulReaper
+//function ValidateTags(str) {
+//    if (str == "") {
+//        return 'Empty Tags are not permitted'
+//    }
+
+//    var tagsElement = document.getElementById('Taglist');
+//    if (tagsElement) {
+//        let options = tagsElement.options;
+//        for (let i = 0; i < options.length; i++) {
+//            if (options[i].value == str) {
+//                return `The Tag #${str} was detected as a duplicate tag and has not been added a second time.`;
+//            }
+//        }
+//    }
+//}
