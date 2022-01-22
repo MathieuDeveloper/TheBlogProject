@@ -1,4 +1,5 @@
-﻿let index = 0;
+﻿
+let index = 0;
 
 function AddTag() {
     //Get a reference to the TagEntry input element
@@ -106,3 +107,4 @@ function search(str) {
 //        }
 //    }
 //}
+

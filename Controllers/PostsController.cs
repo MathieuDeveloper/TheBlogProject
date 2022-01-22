@@ -80,7 +80,7 @@ namespace TheBlogProject.Controllers
                 post.Created= DateTime.Now;
 
                 var authorId = _userManager.GetUserId(User);
-                post.BlogUserId = authorId;
+                post.AuthorId = authorId;
 
                 //Use the _imageService to store the incoming user specified image
                 post.ImageData  = await _imageService.EncodeImageAsync(post.Image);
@@ -181,6 +181,7 @@ namespace TheBlogProject.Controllers
                         _context.Add(new Tag()
                         {
                             PostId = post.Id,
+                            //Ici Kyle JoyFullReaper utilise :  AuthorId = originalPost.AuthorId,
                             AuthorId = newPost.BlogUserId,
                             Text = tagText 
                         });
