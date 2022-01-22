@@ -22,7 +22,7 @@ function AddTag() {
 
         //Create a new Select Option
         let newOption = new Option(tagEntry.value, tagEntry.value);
-        document.getElementById("TagList").options[index++] = newOption;
+        document.getElementById("TagValues").options[index++] = newOption;
     }
         
 
@@ -34,7 +34,7 @@ function AddTag() {
 function DeleteTag() {
     let tagCount = 1;
     while (tagCount > 0) {
-        let tagList = document.getElementById("TagList");
+        let tagList = document.getElementById("TagValues");
         let selectedIndex = tagList.selectedIndex;
         if (selectedIndex >= 0) {
             tagList.options[selectedIndex] = null;
@@ -78,11 +78,11 @@ function search(str) {
         return 'Empty tags are not permitted';
     }
     
-    var tagsEl = document.getElementById('Taglist');
+    var tagsEl = document.getElementById('TagValues');
     if (tagsEl) {
         let options = tagsEl.options;
         for (let index = 0; index < options.length; index++) {
-            if (options[index].text == str) {
+            if (options[index].value == str) {
                 return `The Tag #${str} was detected as a duplicate and not permitted`;
             }
         }
