@@ -82,7 +82,7 @@ function search(str) {
     if (tagsEl) {
         let options = tagsEl.options;
         for (let index = 0; index < options.length; index++) {
-            if (options[index].value == str) {
+            if (options[index].text == str) {
                 return `The Tag #${str} was detected as a duplicate and not permitted`;
             }
         }
