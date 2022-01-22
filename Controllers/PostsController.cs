@@ -80,7 +80,8 @@ namespace TheBlogProject.Controllers
                 post.Created= DateTime.Now;
 
                 var authorId = _userManager.GetUserId(User);
-                post.AuthorId = authorId;
+                // Mathieu: in the video they use AuthorId instead of BlogUserID but it bugs 
+                post.BlogUserId = authorId;
 
                 //Use the _imageService to store the incoming user specified image
                 post.ImageData  = await _imageService.EncodeImageAsync(post.Image);
@@ -147,6 +148,7 @@ namespace TheBlogProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, [Bind("Id,BlogId,Title,Abstract,Content,ReadyStatus")] Post post, IFormFile newImage, List<string> tagValues)
         {
             if (id != post.Id)

@@ -21,6 +21,6 @@ namespace TheBlogProject.Models
         public virtual BlogUser BlogUser { get; set; }
 
         //MATHIEU: ligne suivante ajoutée
-        public virtual Post BlogUserID { get; set; }
+        //public virtual Post BlogUserId { get; set; }
     }
 }
