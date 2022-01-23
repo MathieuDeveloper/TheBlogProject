@@ -9,13 +9,10 @@ function AddTag() {
     let searchResult = search(tagEntry.value);
     if (searchResult != null) {
         //Trigger my sweet alert for whatever condition is contained in the searchReslut var
-        Swal.fire({
-            title: 'Error!',
-            text: 'Do you want to continue',
-            icon: 'error',
-            confirmButtonText: 'Cool'
-        })
+        swalWithDarkButton.fire({
+            html: `<span class='font-weight-bolder'>${searchResult.toUpperCase()}</span>`
 
+        });
 
     }
     else {
@@ -91,20 +88,12 @@ function search(str) {
 
 }
 
-// Detect empty or duplicate tag according to Kyle JoyfulReaper
-//function ValidateTags(str) {
-//    if (str == "") {
-//        return 'Empty Tags are not permitted'
-//    }
-
-//    var tagsElement = document.getElementById('Taglist');
-//    if (tagsElement) {
-//        let options = tagsElement.options;
-//        for (let i = 0; i < options.length; i++) {
-//            if (options[i].value == str) {
-//                return `The Tag #${str} was detected as a duplicate tag and has not been added a second time.`;
-//            }
-//        }
-//    }
-//}
+const swalWithDarkButton = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-danger btn-sm btn-block btn-outline-dark'
+    },
+    imageUrl: '/images/oops.jpg',
+    timer: 3000,
+    buttonsStyling: false
+});
 
