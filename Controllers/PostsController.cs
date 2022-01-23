@@ -89,15 +89,18 @@ namespace TheBlogProject.Controllers
 
                 //Create the slug and determine if it is unique
                 var slug = _slugService.UrlFriendly(post.Title);
-                if(!_slugService.IsUnique(slug))
-                {
-                    ModelState.AddModelError("Title", "The Title you provided cannot be used as it results in a duplicate slug.");
-                    ViewData["TagValues"] = string.Join(",", tagValues);
-                    return View(post);
-                }
+                //if(!_slugService.IsUnique(slug))
+                //{
+                //    ModelState.AddModelError("Title", "The Title you provided cannot be used as it results in a duplicate slug.");
+                //    ViewData["TagValues"] = string.Join(",", tagValues);
+                //    return View(post);
+                //}
 
-                post.Slug = slug;
+                //post.Slug = slug;
                 
+                //Detect incoming duplicate Slugs
+                if(!)
+
 
 
 
