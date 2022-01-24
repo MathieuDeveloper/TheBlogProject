@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheBlogProject.Data;
@@ -112,7 +113,7 @@ namespace TheBlogProject.Controllers
                     return View(post);
                 }
 
-                //post.Slug = slug;
+                post.Slug = slug;
 
 
 
@@ -180,6 +181,7 @@ namespace TheBlogProject.Controllers
             {
                 try
                 {
+                    //The originalPost
                     var newPost = await _context.Posts.Include(p => p.Tags).FirstOrDefaultAsync(p => p.Id == post.Id);    
 
                     newPost.Updated = DateTime.Now;
@@ -187,6 +189,22 @@ namespace TheBlogProject.Controllers
                     newPost.Abstract = post.Abstract;
                     newPost.Content = post.Content;
                     newPost.ReadyStatus = post.ReadyStatus;
+
+                    var newSlug = _slugService.UrlFriendly(post.Title);
+                    if(newSlug != newPost.Slug)
+                    {
+                        if (_slugService.IsUnique(newSlug))
+                        {
+                            newPost.Title = post.Title;
+                            newPost.Slug = newSlug;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Title", "This title cannot be used as it results in a duplicate slug");
+                            ViewData["TagValues"] = string.Join(",", post.Tags.Select(t => t.Text));
+                            return View(post);
+                        }
+                    }
 
                     if (newImage is not null)
                     {
@@ -204,6 +222,7 @@ namespace TheBlogProject.Controllers
                         {
                             PostId = post.Id,
                             //Ici Kyle JoyFullReaper utilise :  AuthorId = originalPost.AuthorId,
+                            //Dans la video BlogUserId  = newPost.BlogUserId,
                             AuthorId = newPost.BlogUserId,
                             Text = tagText 
                         });
