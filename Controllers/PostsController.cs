@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TheBlogProject.Data;
 using TheBlogProject.Models;
 using TheBlogProject.Services;
+using TheBlogProject.Enums;
+using X.PagedList;
 
 namespace TheBlogProject.Controllers
 {
@@ -31,6 +32,13 @@ namespace TheBlogProject.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> SearchIndex(int? page, string searchTerm)
+        {
+            ViewData["SearchTerm"] = searchTerm;
+
+            var pageNumber = page ?? 1
+        }
+
         // GET: Posts
         public async Task<IActionResult> Index()
         {
@@ -39,16 +47,22 @@ namespace TheBlogProject.Controllers
         }
 
         //BlogPostIndex
-        public async Task<IActionResult> BlogPostIndex(int? id)
+        public async Task<IActionResult> BlogPostIndex(int? id, int? page)
         {
             if(id is null)
             {
                 return NotFound();
             }
 
-            var posts = _context.Posts.Where(p => p.BlogId == id).ToList();
+            var pageNumber = page ?? 1;
+            var pageSize = 5;
 
-            return View("Index", posts);
+            //var posts = _context.Posts.Where(p => p.BlogId == id).ToList();
+            var posts = await _context.Posts
+                .Where(p => p.BlogId == id && p.ReadyStatus == ReadyStatus.ProductionReady)
+                .OrderByDescending(p => p.Created)
+                .ToPagedListAsync(pageNumber, pageSize);
+            return View(posts);
 
         }
 
