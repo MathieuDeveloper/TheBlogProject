@@ -36,7 +36,26 @@ namespace TheBlogProject.Controllers
         {
             ViewData["SearchTerm"] = searchTerm;
 
-            var pageNumber = page ?? 1
+            var pageNumber = page ?? 1;
+            var pageSize = 5;
+
+            var posts = _context.Posts.Where(
+                p => p.ReadyStatus == ReadyStatus.ProductionReady).AsQueryable();
+            if(searchTerm != null)
+            {
+                posts = posts.Where(
+                    p => p.Title.Contains(searchTerm) ||
+                    p.Abstract.Contains(searchTerm) ||
+                    p.Content.Contains(searchTerm) ||
+                    p.Comments.Any(c => c.Body.Contains(searchTerm) ||
+                                        c.ModeratedBody.Contains(searchTerm) ||
+                                        c.BlogUser.FirstName.Contains(searchTerm) ||
+                                        c.BlogUser.LastName.Contains(searchTerm) ||
+                                        c.BlogUser.Email.Contains(searchTerm)));                    
+            }
+
+
+
         }
 
         // GET: Posts
