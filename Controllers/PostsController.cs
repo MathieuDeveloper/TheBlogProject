@@ -21,15 +21,17 @@ namespace TheBlogProject.Controllers
         private readonly ISlugService _slugService;
         private readonly IImageService _imageService;
         private readonly UserManager<BlogUser> _userManager;
+        private readonly BlogSearchService _blogSearchService;
 
-        
 
-        public PostsController(ApplicationDbContext context, ISlugService slugService, IImageService imageService, UserManager<BlogUser> userManager)
+
+        public PostsController(ApplicationDbContext context, ISlugService slugService, IImageService imageService, UserManager<BlogUser> userManager, BlogSearchService blogSearchService)
         {
             _context = context;
             _slugService = slugService;
             _imageService = imageService;
             _userManager = userManager;
+            _blogSearchService = blogSearchService;
         }
 
         public async Task<IActionResult> SearchIndex(int? page, string searchTerm)
@@ -39,10 +41,8 @@ namespace TheBlogProject.Controllers
             var pageNumber = page ?? 1;
             var pageSize = 5;
 
-            var posts = _blogSearchService.Search(searchTerm);
-            
+            var posts = _blogSearchService.Search(searchTerm);            
             return View(await posts.ToPagedListAsync(pageNumber, pageSize));
-
 
         }
 
