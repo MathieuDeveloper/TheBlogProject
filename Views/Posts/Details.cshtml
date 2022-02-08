@@ -32,9 +32,30 @@
     </div>
 </article>
 
-
-
 <hr/>
+
+<div>
+    @if(User.Identity.IsAuthenticated)
+    {
+        <form asp-action="Create" asp-controller="Comments" method="post">
+            @Html.Hidden("PostId", Model.Id)
+
+            <div class="form-group">
+                <label class="h2 control-label font-monospace weight-bold">Add Comment</label>
+                <textarea name="body" class="form-control" rows="10"></textarea>
+            </div>
+            <div class="d-grid col-12 mx-auto">
+            <button type="submit" class="btn btn-dark mt-1">Submit</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <a class="btn btn-sm btn-dark" asp-area="Identity" asp-page="/Account/Login">
+        Login to add comments    
+        </a>
+    }
+</div>
 
 
 <!-- Displaying Comments related to this Post -->
