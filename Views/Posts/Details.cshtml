@@ -1,6 +1,10 @@
-﻿@using TheBlogProject.Services
+﻿@using Microsoft.AspNetCore.Identity
+@using TheBlogProject.Services
+@using Newtonsoft.Json
+
 @model TheBlogProject.Models.Post
 
+@inject UserManager<BlogUser> userManager
 @inject IImageService imageService
 
 @{
@@ -61,7 +65,7 @@
 </div>
 
 <hr/>
-<span class="btn btn-sm btn-dark">@Model.Comments.Count COMMENT(S)</span>
+<button id="commentSection" class="btn btn-sm btn-dark">@Model.Comments.Count COMMENT(S)</button>
 
 @foreach (var comment in Model.Comments)
 {
@@ -71,8 +75,35 @@
             <h4>@comment.BlogUser.FullName</h4>
             <small><i> Posted on @comment.Created.ToString("MMM dd, yyyy")</i></small>
             <p>@comment.Body</p>
+
+            @if(comment.Moderated is null && comment.Deleted is null && comment.BlogUserId == userManager.GetUserId(User))
+            {
+                <hr />
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn-sm btn-dark float-right font-weight-bold">EDIT</button>
+            }
+
         </div>
     </div>
+
+   @*Modals*@
+   @*Mathieu: copy form bootstrap needs carving*@
+   <div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 }
 
 
