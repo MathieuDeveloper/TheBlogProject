@@ -161,13 +161,6 @@ namespace TheBlogProject.Controllers
 
                 post.Slug = slug;
 
-
-
-
-
-
-
-
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 //Mathieu : note dans la video il utilise BlogUserId au lieu de AuthorId mais ça bug
@@ -269,7 +262,7 @@ namespace TheBlogProject.Controllers
                             PostId = post.Id,
                             //Ici Kyle JoyFullReaper utilise :  AuthorId = originalPost.AuthorId,
                             //Dans la video BlogUserId  = newPost.BlogUserId,
-                            AuthorId = newPost.BlogUserId,
+                            AuthorId = newPost.AuthorId,
                             Text = tagText 
                         });
                     }
@@ -290,7 +283,7 @@ namespace TheBlogProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Description", post.BlogId);
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", post.BlogUserId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", post.AuthorId);
             return View(post);
         }
 
