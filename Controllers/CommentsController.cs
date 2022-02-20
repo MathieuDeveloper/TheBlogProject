@@ -168,7 +168,7 @@ namespace TheBlogProject.Controllers
                     else
                     {
                         throw;
-                    }
+                    } /* **** STOP ICI *****/
                 }
             }
                 return View(comment);
