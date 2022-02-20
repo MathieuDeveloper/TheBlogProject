@@ -121,7 +121,7 @@ namespace TheBlogProject.Controllers
 
                 var authorId = _userManager.GetUserId(User);
                 // Mathieu: in the video they use AuthorId instead of BlogUserID but it bugs 
-                post.BlogUserId = authorId;
+                post.AuthorId = authorId;
 
                 //Use the _imageService to store the incoming user specified image
                 post.ImageData  = await _imageService.EncodeImageAsync(post.Image);
