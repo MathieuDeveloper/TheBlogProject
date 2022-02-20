@@ -76,9 +76,36 @@
         <img class="mr-3 mt-3 rounded-circle" style="width:60px;" src="@imageService.DecodeImage(comment.BlogUser.ImageData, comment.BlogUser.ContentType )"/>
         <div>
             <h4>@comment.BlogUser.FullName</h4>
-            <small><i> Posted on @comment.Created.ToString("MMM dd, yyyy")</i></small>
-            <p>@comment.Body</p>
+            <small>
+                <i>
+                    @if (comment.Moderated is not null)
+                    {
+                        <span class="small">
+                            <span class="font-weight-bolder">
+                                Moderated <span class="text-danger font-italic">(@comment.ModerationType.ToString().ToLower())</span>
+                            </span>
+                            : @comment.Moderated?.ToString("MMM dd, yyyy")
+                        </span>
+                    }
+                    else 
+                    {
+                    <span class="small font-italic"> Posted on @comment.Created.ToString("MMM dd, yyyy")</span>
+                    }
+                     </i>
+                     </small>
 
+            @if (string.IsNullOrEmpty(comment.Body))
+            {
+                <span class="small font-italic">Comment not available...</span>
+            }
+            else if (comment.Moderated is not null)
+            {
+                <p>@comment.ModeratedBody</p>
+            }
+            else if (comment.Deleted is null)
+            {
+                 <p>@comment.Body</p>
+            }
             @***********************************
             SECTION 1: RENDER THE EDIT BUTTON
             ***********************************@

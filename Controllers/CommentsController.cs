@@ -168,8 +168,9 @@ namespace TheBlogProject.Controllers
                     else
                     {
                         throw;
-                    } /* **** STOP ICI *****/
+                    } 
                 }
+                return RedirectToAction("Details", "Posts", new { slug = newComment.Post.Slug }, "commentSection");
             }
                 return View(comment);
         }
