@@ -122,6 +122,7 @@ namespace TheBlogProject.Controllers
                 var authorId = _userManager.GetUserId(User);
                 // Mathieu: in the video they use AuthorId instead of BlogUserID but it bugs 
                 post.AuthorId = authorId;
+                post.BlogUserId = authorId;
 
                 //Use the _imageService to store the incoming user specified image
                 post.ImageData  = await _imageService.EncodeImageAsync(post.Image);
@@ -165,13 +166,14 @@ namespace TheBlogProject.Controllers
                 await _context.SaveChangesAsync();
                 //Mathieu : note dans la video il utilise BlogUserId au lieu de AuthorId mais ça bug
                 //How do I loop over the incoming list of string ?
-                foreach (var tagText in tagValues)
+                foreach (var tag in tagValues)
                 {
                     _context.Add(new Tag()
                     {
                         PostId = post.Id,
-                        AuthorId = authorId,
-                        Text = tagText
+                        BlogUserId = authorId,
+                        //AuthorId = authorId,
+                        Text = tag
                     });
                 }
 
@@ -203,9 +205,7 @@ namespace TheBlogProject.Controllers
             return View(post);
         }
 
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Posts/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         
