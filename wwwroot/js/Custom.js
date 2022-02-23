@@ -45,7 +45,7 @@ function DeleteTag() {
 }
 
 $("form").on("submit", function () {
-    $("#TagList option").prop("selected", "selected");
+    $("#TagValues option").prop("selected", "selected");
 })
 
 //Look for the tagValues variable to see if it has data

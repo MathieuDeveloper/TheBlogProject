@@ -65,7 +65,7 @@ namespace TheBlogProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                comment.BlogUserId = _userManager.GetUserId(User);
+                comment.AuthorId = _userManager.GetUserId(User);
                 comment.Created = DateTime.Now;
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
@@ -88,7 +88,7 @@ namespace TheBlogProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", comment.BlogUserId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
             ViewData["ModeratorId"] = new SelectList(_context.Users, "Id", "Id", comment.ModeratorId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract", comment.PostId);
             return View(comment);
@@ -131,7 +131,7 @@ namespace TheBlogProject.Controllers
                 return RedirectToAction("Details", "Posts", new { slug  = newComment.Post.Slug}, "commentSection");
             }
 
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", comment.BlogUserId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
             ViewData["ModeratorId"] = new SelectList(_context.Users, "Id", "Id", comment.ModeratorId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Abstract", comment.PostId);
             return View(comment);
@@ -186,7 +186,7 @@ namespace TheBlogProject.Controllers
             }
 
             var comment = await _context.Comments
-                .Include(c => c.BlogUser)
+                .Include(c => c.Author)
                 .Include(c => c.Moderator)
                 .Include(c => c.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);

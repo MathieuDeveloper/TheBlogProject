@@ -30,7 +30,7 @@ namespace TheBlogProject.Controllers
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Blogs.Include(b => b.BlogUser);
+            var applicationDbContext = _context.Blogs.Include(b => b.Author);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -43,7 +43,7 @@ namespace TheBlogProject.Controllers
             }
 
             var blog = await _context.Blogs
-                .Include(b => b.BlogUser)
+                .Include(b => b.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -71,14 +71,14 @@ namespace TheBlogProject.Controllers
             if (ModelState.IsValid)
             {
                 blog.Created = DateTime.Now;
-                blog.BlogUserId = _userManager.GetUserId(User);
+                blog.AuthorId = _userManager.GetUserId(User);
                 blog.ImageData = await _imageService.EncodeImageAsync(blog.Image);
                 blog.ContentType = _imageService.ContentType(blog.Image);
                 _context.Add(blog);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", blog.BlogUserId);
+            ViewData["AuthorrId"] = new SelectList(_context.Users, "Id", "Id", blog.AuthorId);
             return View(blog);
         }
 
@@ -148,7 +148,7 @@ namespace TheBlogProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id", blog.BlogUserId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", blog.AuthorId);
             return View(blog);
         }
 
@@ -161,7 +161,7 @@ namespace TheBlogProject.Controllers
             }
 
             var blog = await _context.Blogs
-                .Include(b => b.BlogUser)
+                .Include(b => b.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {

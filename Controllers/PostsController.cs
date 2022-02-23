@@ -49,7 +49,8 @@ namespace TheBlogProject.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Posts.Include(p => p.Blog).Include(p => p.BlogUser);
+            //**** ATTENTION LIGNE SUIVANTE DIFFERE de celle de Kyle var applicationDbContext = _context.Posts.Include(p => p.Author).Include(p => p.Blog);
+            var applicationDbContext = _context.Posts.Include(p => p.Blog).Include(p => p.Author);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -85,10 +86,10 @@ namespace TheBlogProject.Controllers
 
             var post = await _context.Posts
                 .Include(p => p.Blog)
-                .Include(p => p.BlogUser)
+                .Include(p => p.Author)
                 .Include(p => p.Tags)
                 .Include(p => p.Comments)
-                .ThenInclude(c => c.BlogUser)
+                .ThenInclude(c => c.Author)
                 .FirstOrDefaultAsync(m => m.Slug == slug);
 
             if (post == null)
@@ -104,7 +105,7 @@ namespace TheBlogProject.Controllers
         {
             ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");
             
-            ViewData["BlogUserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -119,10 +120,9 @@ namespace TheBlogProject.Controllers
             {
                 post.Created= DateTime.Now;
 
-                var authorId = _userManager.GetUserId(User);
-                // Mathieu: in the video they use AuthorId instead of BlogUserID but it bugs 
+                var authorId = _userManager.GetUserId(User);                 
                 post.AuthorId = authorId;
-                post.BlogUserId = authorId;
+                
 
                 //Use the _imageService to store the incoming user specified image
                 post.ImageData  = await _imageService.EncodeImageAsync(post.Image);
@@ -171,8 +171,7 @@ namespace TheBlogProject.Controllers
                     _context.Add(new Tag()
                     {
                         PostId = post.Id,
-                        BlogUserId = authorId,
-                        //AuthorId = authorId,
+                        AuthorId = authorId,                       
                         Text = tag
                     });
                 }
@@ -297,7 +296,7 @@ namespace TheBlogProject.Controllers
 
             var post = await _context.Posts
                 .Include(p => p.Blog)
-                .Include(p => p.BlogUser)
+                .Include(p => p.Author)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {

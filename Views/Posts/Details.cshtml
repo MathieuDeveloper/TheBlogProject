@@ -35,7 +35,7 @@
          <div class="col text-center">
             @foreach(var tag in Model.Tags)
             {
-                <a class="btn btn-warning btn-sm btn-outline-dark" asp-action="TagIndex" asp-route-tag ="@tag">#@tag</a>
+                <a class="btn btn-warning btn-sm btn-outline-dark" asp-action="TagIndex" asp-route-tag="@tag.Text.ToLower()">#@tag.Text</a>
                 @*@tag.Text.ToLower()*@
             }
         </div>
@@ -74,9 +74,9 @@
 @foreach (var comment in Model.Comments)
 {
     <div class="d-flex border p-0 mb-2 bg-light">
-        <img class="mr-3 mt-3 rounded-circle" style="width:60px;" src="@imageService.DecodeImage(comment.BlogUser.ImageData, comment.BlogUser.ContentType )"/>
+        <img class="mr-3 mt-3 rounded-circle" style="width:60px;" src="@imageService.DecodeImage(comment.Author.ImageData, comment.Author.ContentType )"/>
         <div>
-            <h4>@comment.BlogUser.FullName</h4>
+            <h4>@comment.Author.FullName</h4>
             <small>
                 <i>
                     @if (comment.Moderated is not null)
@@ -111,7 +111,7 @@
             SECTION 1: RENDER THE EDIT BUTTON
             ***********************************@
 
-            @if(comment.Moderated is null && comment.Deleted is null && comment.BlogUserId == userManager.GetUserId(User))
+            @if(comment.Moderated is null && comment.Deleted is null && comment.AuthorId == userManager.GetUserId(User))
             {
                 <hr />
                 <button data-bs-toggle="modal" data-bs-target="@($"#editModal{counter}")" class="btn-sm btn-dark float-right font-weight-bold">EDIT</button>

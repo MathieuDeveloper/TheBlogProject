@@ -16,7 +16,7 @@ namespace TheBlogProject.Models
         [Display(Name ="Blog Name")]
         public int BlogId { get; set; }
         public string AuthorId { get; set; }
-        public string BlogUserId { get; set; }
+        
 
 
         [Required]
@@ -52,7 +52,7 @@ namespace TheBlogProject.Models
         // Navigation property
         public virtual Blog Blog { get; set; }
         public virtual BlogUser Author { get; set; }    
-        public virtual BlogUser BlogUser { get; set; }
+        
 
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();

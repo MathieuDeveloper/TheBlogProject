@@ -12,7 +12,7 @@ namespace TheBlogProject.Models
     {
         public int Id { get; set; }
         public int PostId { get; set; }
-        public string BlogUserId { get; set; }
+        
         public string AuthorId { get; set; }
         public string ModeratorId { get; set; }
 
@@ -36,7 +36,7 @@ namespace TheBlogProject.Models
         public virtual Post Post { get; set; }
         public virtual BlogUser Author { get; set; }
         public virtual BlogUser Moderator { get; set; }
-        public virtual BlogUser BlogUser { get; set; }
+       
        
     }
 }
