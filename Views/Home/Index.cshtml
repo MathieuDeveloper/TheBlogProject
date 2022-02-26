@@ -19,69 +19,64 @@
                 <div class="card border-dark">
                    <img class="card-img-top" src="@_imageService.DecodeImage(blog.ImageData, blog.ContentType)" alt="Image Blog">
                     <div class="card-body text-center">
-                        @************* MATHIEU: STOP ICI**************@
-                    <h5 class="card-title">Card title</h5>
-                    
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                        
+                        <div class="bg-warning">
+                            <hr class="card-hr" />
+                            <h5 class="card-title">@blog.Name</h5>
+                            <hr class="card-hr" />
+                        </div>
 
+                        <div>
+                        <p class="card-text cftooltip"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title=""
+                        data-original-title="@blog.Description">@blog.Description</p>
+                        </div>
+
+                        <br/>
+                        <div class="text-center">
+                            <a class="btn btn-dark btn-sm mb-2" asp-action="BlogPostIndex" asp-controller="Posts" asp-route-id="@blog.Id">
+                            Read Posts
+                            </a>
+                        </div>
+
+                    @if (User.IsInRole(BlogRole.Administrator.ToString()))
+                    {
+                        <div class="text-center">
+                            <a class="btn btn-danger btn-sm btn-block" asp-action="Create" asp-controller="Posts" asp-route-id="@blog.Id">Create Post</a>
+                        </div>
+                    }
+
+                     @if (User.IsInRole(BlogRole.Administrator.ToString()))
+                    {
+                        <div class="text-center">
+                            <a class="btn btn-danger btn-sm btn-block" asp-action="Edit" asp-controller="Blogs" asp-route-id="@blog.Id">Edit Blog</a>
+                        </div>
+                    }
                     </div>
                 </div>
            </div>
        }
+     </div>
 
-    </div>
+<hr/>
 
-@*@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="container px-4 px-lg-5">
-<div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    
-                     @foreach (var blog in Model)
-                     {            
-                          <div class="post-preview">
-                                <a asp-controller="Posts" asp-action="BlogPostIndex" asp-route-id="@blog.Id">
-                                    <h2 class="post-title">
-                                         @blog.Name
-                                    </h2>
-                                    <h3 class="post-subtitle">
-                                       @blog.Description
-                                    </h3>
-                                </a>
-                                <p class="post-meta">
-                                    Authored by
-                                    <a href="#!">@blog.Author.FullName</a>
-                                    on @blog.Created.ToString("MMM dd, yyyy")
-                                </p>
-                          </div>
-            <hr class="my-4" />                        
-            }
-                    
-                   
-                    <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
-                </div>
-</div>
-</div>
-
-<!-- Add Paging controls here-->
 <div class="row">
     <div class="col h3">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     </div>
 </div>
 
+@*-- Paged List Core-- *@
 <div class="row">
     <div class="col">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page}),
-        new PagedListRenderOptions
+        @*************MATHIEU STOP ICI****************@
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { Page = page}),
+        new PagedListRenderOptionsBase
         {
-            LiElementClasses = new string[] {"page-item"},
+            LiElementClasses = new string[ {"page-item"},
             PageClasses = new string[] {"page-link"}
-        });
+        })
     </div>
-</div>*@
+</div>
