@@ -103,8 +103,7 @@ namespace TheBlogProject.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");
-            
+            ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name");            
             ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -119,7 +118,6 @@ namespace TheBlogProject.Controllers
             if (ModelState.IsValid)
             {
                 post.Created= DateTime.Now;
-
                 var authorId = _userManager.GetUserId(User);                 
                 post.AuthorId = authorId;
                 
