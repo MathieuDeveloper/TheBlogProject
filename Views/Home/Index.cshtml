@@ -1,11 +1,39 @@
 ﻿@using TheBlogProject.Models
+@using TheBlogProject.Services
+@using TheBlogProject.Enums
+@using Microsoft.AspNetCore.Identity
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
+@inject IImageService _imageService
+@inject UserManager<BlogUser> _userManager
+
 @model IPagedList<Blog>
 
-@{
+    <div class="row">
+
+        @foreach (var blog in Model)
+       {
+           <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
+                <div class="card border-dark">
+                   <img class="card-img-top" src="@_imageService.DecodeImage(blog.ImageData, blog.ContentType)" alt="Image Blog">
+                    <div class="card-body text-center">
+                        @************* MATHIEU: STOP ICI**************@
+                    <h5 class="card-title">Card title</h5>
+                    
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                    </div>
+                </div>
+           </div>
+       }
+
+    </div>
+
+@*@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -56,4 +84,4 @@
             PageClasses = new string[] {"page-link"}
         });
     </div>
-</div>
+</div>*@
