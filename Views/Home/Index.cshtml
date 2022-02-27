@@ -71,12 +71,32 @@
 @*-- Paged List Core-- *@
 <div class="row">
     <div class="col">
-        @*************MATHIEU STOP ICI****************@
+        
         @Html.PagedListPager(Model, page => Url.Action("Index", new { Page = page}),
-        new PagedListRenderOptionsBase
+        new PagedListRenderOptions
         {
-            LiElementClasses = new string[ {"page-item"},
-            PageClasses = new string[] {"page-link"}
+            LiElementClasses = new string[] { "page-item" },
+            PageClasses = new string[] { "page-link" }
         })
     </div>
 </div>
+
+@section Scripts {
+
+    <script>
+        var swalMsg = '@TempData["SweetAlert"]'
+        if (swalMsg != "") {
+            SwalMsg.fire({
+                icon: 'succes',
+                title: swalMsg,
+                timer: 2500
+            })
+        }
+    
+       $(document).ready(function(){
+           $("p").tooltip();
+       });
+
+    </script>
+
+}
