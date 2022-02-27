@@ -75,7 +75,7 @@
     @foreach (var comment in Model.Post.Comments.OrderByDescending(c => c.Created))
     {
         <div class="media p-3 mb-2 bg-cf media-border">
-            <img src="@imageService.DecodeImage(comment.Author.Image, comment.Author.ContentType)" alt="@comment.Author" class="mr-3 mt-3 rounded-pill img-thumbnail " style="width:60px;">
+            <img src="@imageService.DecodeImage(comment.Author.ImageData, comment.Author.ContentType)" alt="@comment.Author" class="mr-3 mt-3 rounded-pill img-thumbnail " style="width:60px;">
             
             <div class="media-body">
                 <h4>@comment.Author</h4>

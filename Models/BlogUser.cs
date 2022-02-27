@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace TheBlogProject.Models
 {
     public class BlogUser : IdentityUser
@@ -27,6 +28,7 @@ namespace TheBlogProject.Models
 
         public byte[] ImageData { get; set; }
         public string ContentType { get; set; }
+     
 
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and no more than {1} characters long", MinimumLength = 2)]
         public string FacebookUrl { get; set; }

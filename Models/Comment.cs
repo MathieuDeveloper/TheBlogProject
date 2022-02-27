@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TheBlogProject.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace TheBlogProject.Models
 {
@@ -20,6 +21,7 @@ namespace TheBlogProject.Models
         [StringLength(500, ErrorMessage = "The {0} must be at least {2} and no more than {1} long", MinimumLength = 2)]
         [Display(Name = "Comment")]
         public string Body { get; set; }
+       
 
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
