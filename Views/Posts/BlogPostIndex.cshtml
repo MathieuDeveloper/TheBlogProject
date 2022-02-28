@@ -1,10 +1,13 @@
 ﻿@using TheBlogProject.Services
 @using TheBlogProject.Models
+@using TheBlogProject.Enums
+@using Microsoft.AspNetCore.Identity
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
 @inject IImageService imageService
+
 @model IPagedList<Post>
 
 @{
