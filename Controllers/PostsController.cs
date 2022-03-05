@@ -102,6 +102,11 @@ namespace TheBlogProject.Controllers
                         .Select(t => t.Text.ToLower())
                         .Distinct().ToList()
             };
+
+            ViewData["HeaderImage"] = _imageService.DecodeImage(post.ImageData, post.ContentType);
+            ViewData["MainText"] = post.Title;
+            ViewData["SubText"] = post.Abstract;
+
             return View(dataVM);
         }
 
