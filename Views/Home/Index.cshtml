@@ -16,7 +16,7 @@
         @foreach (var blog in Model)
        {
            <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
-                <div class="card border-dark">
+                <div class="card border-dark">                    
                    <img class="card-img-top" src="@_imageService.DecodeImage(blog.ImageData, blog.ContentType)" alt="Image Blog">
                     <div class="card-body text-center">
                         
@@ -35,25 +35,27 @@
                         </div>
 
                         <br/>
-                        <div class="text-center">
-                            <a class="btn btn-dark btn-sm mb-2" asp-action="BlogPostIndex" asp-controller="Posts" asp-route-id="@blog.Id">
+                        <div class="d-grid gap-2 text-center col-4 mx-auto">
+                        
+                            <a class="btn btn-primary btn-sm mb-2" role="button" asp-action="BlogPostIndex" asp-controller="Posts" asp-route-id="@blog.Id">
                             Read Posts
                             </a>
-                        </div>
+                        
 
                     @if (User.IsInRole(BlogRole.Administrator.ToString()))
                     {
-                        <div class="text-center">
-                            <a class="btn btn-danger btn-sm btn-block" asp-action="Create" asp-controller="Posts" asp-route-id="@blog.Id">Create Post</a>
-                        </div>
+                        
+                            <a class="btn btn-dark btn-sm" role="button" asp-action="Create" asp-controller="Posts" asp-route-id="@blog.Id">Create Post</a>
+                        
                     }
 
                      @if (User.IsInRole(BlogRole.Administrator.ToString()))
                     {
-                        <div class="text-center">
-                            <a class="btn btn-danger btn-sm btn-block" asp-action="Edit" asp-controller="Blogs" asp-route-id="@blog.Id">Edit Blog</a>
-                        </div>
+                        
+                            <a class="btn btn-secondary btn-sm" role="button" asp-action="Edit" asp-controller="Blogs" asp-route-id="@blog.Id">Edit Blog</a>
+                        
                     }
+                    </div>
                     </div>
                 </div>
            </div>
@@ -70,14 +72,13 @@
 
 @*-- Paged List Core-- *@
 <div class="row">
-    <div class="col">
-        
+    <div class="col">        
         @Html.PagedListPager(Model, page => Url.Action("Index", new { Page = page}),
         new PagedListRenderOptions
         {
             LiElementClasses = new string[] { "page-item" },
             PageClasses = new string[] { "page-link" }
-        })
+        })       
     </div>
 </div>
 

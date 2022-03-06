@@ -5,6 +5,14 @@
     --white-color: #ebeadf;
 }
 
+.card-img-top { 
+    object-fit: contain;
+}
+
+.card-img-bottom {
+    object-fit: contain;
+}
+
 .light-text {
     color: var(--white-color);
 }

@@ -47,9 +47,9 @@
                         @if (User.IsInRole("Administrator"))
                     {
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Blogs" asp-action="Create">Create Blog</a></li>
-                    }
-                </ul>
-                    <partial name="_LoginPartial"/>
+                    }     
+                    </ul>
+                    <partial name="_LoginPartial"/>                    
                 </div>
             </div>
         </nav>
@@ -65,10 +65,8 @@
 
                             <form asp-action="SearchIndex" asp-controller="Posts">
     <div class="input-group mt-5">
-        <input type="text" name="SearchTerm" class="form-control" placeholder="Search Term">
-        <div class="input-group-append">
-            <button class="btn btn-warning btn-block btn-sm" type="submit">Search</button>
-        </div>
+        <input type="text" name="SearchTerm" class="form-control" placeholder="Search Term">        
+        <button class="btn btn-outline-warning btn-sm ms-2" type="submit">Search</button>       
     </div>
 </form>
 
@@ -89,23 +87,15 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <ul class="list-inline text-center">
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a target="_blank" href="https://www.linkedin.com/in/mathieu-developer-a18a03219/">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                            </li>
+                            </li>                            
                             <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!">
+                                <a target="_blank" href="https://github.com/MathieuDeveloper">
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -113,7 +103,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+                        <div class="small text-center text-muted fst-italic">Mathieu Developer</div>
                     </div>
                 </div>
             </div>
