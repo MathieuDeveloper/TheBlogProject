@@ -78,7 +78,7 @@ namespace TheBlogProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorrId"] = new SelectList(_context.Users, "Id", "Id", blog.AuthorId);
+            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", blog.AuthorId);
             return View(blog);
         }
 
